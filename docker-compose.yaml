@@ -1,0 +1,143 @@
+version: "3.8"
+services:
+  db:
+    image: 'postgres:latest'
+    container_name: database_cicd
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5434:5432"
+    volumes:
+      - D:\POC\back-end\postgres_datapart:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - cicd_microservice_network
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=vishesh3999@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=vish@123
+    ports:
+      - "5050:80"
+    networks:
+      - cicd_microservice_network
+#   # netflix eureka server configure
+  serviceDiscovery:
+    image: 'servicediscovery-ci-cd'
+    container_name: serviceDiscovery_cicd
+    ports:
+        - "8761:8761"
+    environment:
+      SPRING_APPLICATION_JSON: '{"eureka":
+                                              {"client":
+                                                  {"serviceUrl":
+                                                        {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                                  }
+                                              }
+                                      }'
+    networks:
+      - shopping_cart_microservice_network
+  # Gate way client configure
+  gate-way:
+    image: 'gatewayservice-ci-cd'
+    container_name: gateway_cicd
+    ports:
+      - "8180:8180"
+    environment:
+      SPRING_APPLICATION_JSON: '{"eureka":
+                                          {"client":
+                                              {"serviceUrl":
+                                                    {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                              }
+                                          }
+                                  }'
+    links:
+      - serviceDiscovery
+    restart: always
+    networks:
+      - cicd_microservice_network
+  # Auth service client configure
+  AuthService:
+    image: 'authservice-ci-cd'
+    container_name: authservice_cicd
+    ports:
+      - "8181:8181"
+    environment:
+      SPRING_APPLICATION_JSON: '{"eureka":
+                                    {"client":
+                                        {"serviceUrl":
+                                            {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                        }
+                                    }
+                                }'
+    links:
+      - db
+      - serviceDiscovery
+    restart: always
+    networks:
+      - cicd_microservice_network
+
+  # Order service client configure
+  OrderService:
+    image: 'orderservice-ci-cd'
+    container_name: orderservice_cicd
+    ports:
+      - "8182:8182"
+    environment:
+            SPRING_APPLICATION_JSON: '{"eureka":
+                                            {"client":
+                                              {"serviceUrl":
+                                                  {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                              }
+                                            }
+                                        }'
+    links:
+      - db
+      - serviceDiscovery
+    restart: always
+    networks:
+      - cicd_microservice_network
+ # Product service client configure
+  ProductService:
+    image: 'product-service-ci-cd'
+    container_name: productservice_cicd
+    ports:
+      - "8183:8183"
+    environment:
+      SPRING_APPLICATION_JSON: '{"eureka":
+                                      {"client":
+                                        {"serviceUrl":
+                                            {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                        }
+                                      }
+                                  }'
+    links:
+      - db
+      - serviceDiscovery
+    restart: always
+    networks:
+      - cicd_microservice_network
+ # Payment sevice client configure
+  PaymentService:
+    image: 'paymentservice-ci-cd'
+    container_name: paymentservice_cicd
+    ports:
+      - "8184:8184"
+    environment:
+            SPRING_APPLICATION_JSON: '{"eureka":
+                                            {"client":
+                                              {"serviceUrl":
+                                                  {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                              }
+                                            }
+                                        }'
+    links:
+      - db
+      - serviceDiscovery
+    restart: always
+    networks:
+      - cicd_microservice_network
+networks:
+  cicd_microservice_network:
+          driver: bridge
