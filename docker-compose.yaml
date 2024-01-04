@@ -54,7 +54,8 @@ services:
                                   }'
     links:
       - serviceDiscovery
-    restart: always
+    depends_on:
+      - serviceDiscovery
     networks:
       - shopping_cart_cicd_microservice_network
   # Auth service client configure
