@@ -32,7 +32,7 @@ services:
       SPRING_APPLICATION_JSON: '{"eureka":
                                               {"client":
                                                   {"serviceUrl":
-                                                        {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                                        {"defaultZone":"http://serviceDiscovery_cicd:8761/eureka"}
                                                   }
                                               }
                                       }'
@@ -48,7 +48,7 @@ services:
       SPRING_APPLICATION_JSON: '{"eureka":
                                           {"client":
                                               {"serviceUrl":
-                                                    {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                                    {"defaultZone":"http://serviceDiscovery_cicd:8761/eureka"}
                                               }
                                           }
                                   }'
@@ -67,7 +67,7 @@ services:
       SPRING_APPLICATION_JSON: '{"eureka":
                                     {"client":
                                         {"serviceUrl":
-                                            {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                            {"defaultZone":"http://serviceDiscovery_cicd:8761/eureka"}
                                         }
                                     }
                                 }'
@@ -88,7 +88,7 @@ services:
             SPRING_APPLICATION_JSON: '{"eureka":
                                             {"client":
                                               {"serviceUrl":
-                                                  {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                                  {"defaultZone":"http://serviceDiscovery_cicd:8761/eureka"}
                                               }
                                             }
                                         }'
@@ -108,7 +108,7 @@ services:
       SPRING_APPLICATION_JSON: '{"eureka":
                                       {"client":
                                         {"serviceUrl":
-                                            {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                            {"defaultZone":"http://serviceDiscovery_cicd:8761/eureka"}
                                         }
                                       }
                                   }'
@@ -128,7 +128,7 @@ services:
             SPRING_APPLICATION_JSON: '{"eureka":
                                             {"client":
                                               {"serviceUrl":
-                                                  {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+                                                  {"defaultZone":"http://serviceDiscovery_cicd:8761/eureka"}
                                               }
                                             }
                                         }'
