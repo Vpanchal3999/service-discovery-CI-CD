@@ -39,106 +39,106 @@ services:
     networks:
       - shopping_cart_cicd_microservice_network
   # Gate way client configure
-  gate-way:
-    image: 'gatewayservice-ci-cd'
-    container_name: gateway_cicd
-    ports:
-      - "8280:8280"
-    environment:
-      SPRING_APPLICATION_JSON: '{"eureka":
-                                          {"client":
-                                              {"serviceUrl":
-                                                    {"defaultZone":"http://serviceDiscovery:8761/eureka"}
-                                              }
-                                          }
-                                  }'
-    links:
-      - serviceDiscovery
-    depends_on:
-      - serviceDiscovery
-    networks:
-      - shopping_cart_cicd_microservice_network
-  # Auth service client configure
-  AuthService:
-    image: 'authservice-ci-cd'
-    container_name: authservice_cicd
-    ports:
-      - "8281:8281"
-    environment:
-      SPRING_APPLICATION_JSON: '{"eureka":
-                                    {"client":
-                                        {"serviceUrl":
-                                            {"defaultZone":"http://serviceDiscovery:8761/eureka"}
-                                        }
-                                    }
-                                }'
-    links:
-      - db
-      - serviceDiscovery
-    restart: always
-    networks:
-      - shopping_cart_cicd_microservice_network
+ #  gate-way:
+ #    image: 'gatewayservice-ci-cd'
+ #    container_name: gateway_cicd
+ #    ports:
+ #      - "8280:8280"
+ #    environment:
+ #      SPRING_APPLICATION_JSON: '{"eureka":
+ #                                          {"client":
+ #                                              {"serviceUrl":
+ #                                                    {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+ #                                              }
+ #                                          }
+ #                                  }'
+ #    links:
+ #      - serviceDiscovery
+ #    depends_on:
+ #      - serviceDiscovery
+ #    networks:
+ #      - shopping_cart_cicd_microservice_network
+ #  # Auth service client configure
+ #  AuthService:
+ #    image: 'authservice-ci-cd'
+ #    container_name: authservice_cicd
+ #    ports:
+ #      - "8281:8281"
+ #    environment:
+ #      SPRING_APPLICATION_JSON: '{"eureka":
+ #                                    {"client":
+ #                                        {"serviceUrl":
+ #                                            {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+ #                                        }
+ #                                    }
+ #                                }'
+ #    links:
+ #      - db
+ #      - serviceDiscovery
+ #    restart: always
+ #    networks:
+ #      - shopping_cart_cicd_microservice_network
 
-  # Order service client configure
-  OrderService:
-    image: 'orderservice-ci-cd'
-    container_name: orderservice_cicd
-    ports:
-      - "8282:8282"
-    environment:
-            SPRING_APPLICATION_JSON: '{"eureka":
-                                            {"client":
-                                              {"serviceUrl":
-                                                  {"defaultZone":"http://serviceDiscovery:8761/eureka"}
-                                              }
-                                            }
-                                        }'
-    links:
-      - db
-      - serviceDiscovery
-    restart: always
-    networks:
-      - shopping_cart_cicd_microservice_network
- # Product service client configure
-  ProductService:
-    image: 'product-service-ci-cd'
-    container_name: productservice_cicd
-    ports:
-      - "8283:8283"
-    environment:
-      SPRING_APPLICATION_JSON: '{"eureka":
-                                      {"client":
-                                        {"serviceUrl":
-                                            {"defaultZone":"http://serviceDiscovery:8761/eureka"}
-                                        }
-                                      }
-                                  }'
-    links:
-      - db
-      - serviceDiscovery
-    restart: always
-    networks:
-      - shopping_cart_cicd_microservice_network
- # Payment sevice client configure
-  PaymentService:
-    image: 'paymentservice-ci-cd'
-    container_name: paymentservice_cicd
-    ports:
-      - "8284:8284"
-    environment:
-            SPRING_APPLICATION_JSON: '{"eureka":
-                                            {"client":
-                                              {"serviceUrl":
-                                                  {"defaultZone":"http://serviceDiscovery:8761/eureka"}
-                                              }
-                                            }
-                                        }'
-    links:
-      - db
-      - serviceDiscovery
-    restart: always
-    networks:
-      - shopping_cart_cicd_microservice_network
+ #  # Order service client configure
+ #  OrderService:
+ #    image: 'orderservice-ci-cd'
+ #    container_name: orderservice_cicd
+ #    ports:
+ #      - "8282:8282"
+ #    environment:
+ #            SPRING_APPLICATION_JSON: '{"eureka":
+ #                                            {"client":
+ #                                              {"serviceUrl":
+ #                                                  {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+ #                                              }
+ #                                            }
+ #                                        }'
+ #    links:
+ #      - db
+ #      - serviceDiscovery
+ #    restart: always
+ #    networks:
+ #      - shopping_cart_cicd_microservice_network
+ # # Product service client configure
+ #  ProductService:
+ #    image: 'product-service-ci-cd'
+ #    container_name: productservice_cicd
+ #    ports:
+ #      - "8283:8283"
+ #    environment:
+ #      SPRING_APPLICATION_JSON: '{"eureka":
+ #                                      {"client":
+ #                                        {"serviceUrl":
+ #                                            {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+ #                                        }
+ #                                      }
+ #                                  }'
+ #    links:
+ #      - db
+ #      - serviceDiscovery
+ #    restart: always
+ #    networks:
+ #      - shopping_cart_cicd_microservice_network
+ # # Payment sevice client configure
+ #  PaymentService:
+ #    image: 'paymentservice-ci-cd'
+ #    container_name: paymentservice_cicd
+ #    ports:
+ #      - "8284:8284"
+ #    environment:
+ #            SPRING_APPLICATION_JSON: '{"eureka":
+ #                                            {"client":
+ #                                              {"serviceUrl":
+ #                                                  {"defaultZone":"http://serviceDiscovery:8761/eureka"}
+ #                                              }
+ #                                            }
+ #                                        }'
+ #    links:
+ #      - db
+ #      - serviceDiscovery
+ #    restart: always
+ #    networks:
+ #      - shopping_cart_cicd_microservice_network
 networks:
   shopping_cart_cicd_microservice_network:
           driver: bridge
