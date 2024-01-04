@@ -43,7 +43,7 @@ services:
     image: 'gatewayservice-ci-cd'
     container_name: gateway_cicd
     ports:
-      - "9080:9080"
+      - "8280:8280"
     environment:
       SPRING_APPLICATION_JSON: '{"eureka":
                                           {"client":
@@ -62,7 +62,7 @@ services:
     image: 'authservice-ci-cd'
     container_name: authservice_cicd
     ports:
-      - "9081:9081"
+      - "8281:8281"
     environment:
       SPRING_APPLICATION_JSON: '{"eureka":
                                     {"client":
@@ -83,7 +83,7 @@ services:
     image: 'orderservice-ci-cd'
     container_name: orderservice_cicd
     ports:
-      - "9082:9082"
+      - "8282:8282"
     environment:
             SPRING_APPLICATION_JSON: '{"eureka":
                                             {"client":
@@ -103,7 +103,7 @@ services:
     image: 'product-service-ci-cd'
     container_name: productservice_cicd
     ports:
-      - "9083:9083"
+      - "8283:8283"
     environment:
       SPRING_APPLICATION_JSON: '{"eureka":
                                       {"client":
@@ -123,7 +123,7 @@ services:
     image: 'paymentservice-ci-cd'
     container_name: paymentservice_cicd
     ports:
-      - "9084:9084"
+      - "8284:8284"
     environment:
             SPRING_APPLICATION_JSON: '{"eureka":
                                             {"client":
