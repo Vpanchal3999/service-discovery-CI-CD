@@ -1,0 +1,86 @@
+pipeline {
+    agent any
+    tools{
+        maven 'Maven'  
+        jdk 'JAVA'
+    }
+    stages{
+        stage('Build Maven Common') {
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubNewCred', url: 'https://github.com/Vpanchal3999/common-CI-CD']])
+                bat "mvn clean install -DskipTests"
+            }
+        }
+        
+        stage('Build Maven/Image ServiceDiscovery') {
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubNewCred', url: 'https://github.com/Vpanchal3999/service-discovery-CI-CD']])
+                bat "mvn clean install -DskipTests"
+                script{
+                    bat 'docker build -t servicediscovery-ci-cd .'
+                }
+            }
+           
+        }
+        
+        stage('Build Maven/Image GateWay') {
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubCred', url: 'https://github.com/Vpanchal3999/gateway-CI-CD']])
+                bat "mvn clean install -DskipTests"
+                script{
+                    bat 'docker build -t gatewayservice-ci-cd .'
+                }
+            }
+        }
+        
+        stage('Build Maven/Image AuthService') {
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubCred', url: 'https://github.com/Vpanchal3999/auth-service-CI-CD']])
+                bat "mvn clean install -DskipTests"
+                script{
+                     bat 'docker build -t authservice-ci-cd .'
+                }
+            }
+        }
+        
+        stage('Build Maven/Image PaymentService') {
+            steps{
+              checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubCred', url: 'https://github.com/Vpanchal3999/payment-service-CI-CD']])
+              bat "mvn clean install -DskipTests"
+              script{
+                     bat 'docker build -t paymentservice-ci-cd .'
+                }
+            }
+        }
+        
+        stage('Build Maven/Image ProductService') {
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubCred', url: 'https://github.com/Vpanchal3999/product-service-CI-CD']])
+                bat "mvn clean install -DskipTests"
+                script{
+                    bat 'docker build -t product-service-ci-cd .'
+                }
+            }
+        }
+        stage('Build Maven/Image OrderService') {
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubCred', url: 'https://github.com/Vpanchal3999/order-service-CI-CD']])
+                bat "mvn clean install -DskipTests"
+                script{
+                    bat 'docker build -t orderservice-ci-cd .'
+                }
+            }
+        }
+        stage('Push all images to Docker Hub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'docker-hub-pwd', variable: 'dockerhubcred')]) {
+                    bat 'docker login -u=vishesh3999 -p=Vish@panchal99 docker.io'
+                }
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubCred', url: 'https://github.com/Vpanchal3999/service-discovery-CI-CD']])
+                    bat 'docker compose -f docker-compose.yaml up -d'
+                }
+            }
+        }
+    }
+}
